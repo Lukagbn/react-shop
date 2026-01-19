@@ -1,0 +1,45 @@
+.formContainer {
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  height: 300px;
+}
+.formContainer form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.formHeader {
+  text-align: center;
+}
+.formGroup input {
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid black;
+  outline: none;
+  color: black;
+  font-size: 15px;
+}
+.formContainer .formGroup:nth-of-type(3) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.formGroup .checkbox {
+  height: 13px;
+  width: 13px;
+}
+.logInBtn {
+  width: 200px;
+  height: 30px;
+  align-self: center;
+  cursor: pointer;
+  font-size: 15px;
+}
