@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function page() {
   const router = useRouter();
@@ -63,6 +64,12 @@ function page() {
         <button className={styles.logInBtn} type="submit">
           log in
         </button>
+        <p>
+          Dont have an account?{" "}
+          <Link className={styles.singupLink} href={"/register"}>
+            Sign up
+          </Link>
+        </p>
         {loginError && <div>{loginError}</div>}
       </form>
     </div>

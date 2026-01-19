@@ -6,6 +6,7 @@ import CartItem from "@/components/CartItem/CartItem";
 
 function page() {
   const [cartData, setCartData] = useState(null);
+  const [hasToken, setHasToken] = useState(false);
   const fetchCartData = async () => {
     const res = await fetch("https://fakestoreapi.com/carts/2");
     const response = await res.json();
@@ -13,7 +14,14 @@ function page() {
   };
   useEffect(() => {
     fetchCartData();
+    const token = localStorage.getItem("token");
+    if (token) {
+      setHasToken(!hasToken);
+    }
   }, []);
+  if (!hasToken) {
+    return <div>you must sign in ro continiue!</div>;
+  }
   if (!cartData) {
     return <div className={styles.loadingData}>loading cart</div>;
   }

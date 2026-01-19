@@ -1,13 +1,15 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import layout from "@/app/layout.module.css";
 import { usePathname } from "next/navigation";
+import { boolean } from "yup";
 
 function Navbar() {
   const pathname = usePathname();
+  const [hasToken, setHasToken] = useState(false);
   const NAVBAR_LIST = [
     {
       name: "Products",
@@ -16,13 +18,19 @@ function Navbar() {
       className: styles.products,
     },
     {
-      name: "Profile",
-      url: "/profile",
+      name: hasToken ? "Profile" : "Log In",
+      url: hasToken ? "/profile" : "/login",
       img: "/profile.svg",
       className: styles.profile,
     },
     { name: "Cart", url: "/cart", img: "/cart.svg", className: styles.cart },
   ];
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setHasToken(!hasToken);
+    }
+  }, []);
   return (
     <header className={`${styles.header} ${layout.container}`}>
       <ul>
