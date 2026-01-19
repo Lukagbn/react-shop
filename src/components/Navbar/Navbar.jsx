@@ -5,11 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import layout from "@/app/layout.module.css";
 import { usePathname } from "next/navigation";
-import { boolean } from "yup";
 
 function Navbar() {
   const pathname = usePathname();
-  const [hasToken, setHasToken] = useState(false);
+  const [hasToken, setHasToken] = useState(null);
   const NAVBAR_LIST = [
     {
       name: "Products",
@@ -28,7 +27,7 @@ function Navbar() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setHasToken(!hasToken);
+      setHasToken(!!token);
     }
   }, []);
   return (
