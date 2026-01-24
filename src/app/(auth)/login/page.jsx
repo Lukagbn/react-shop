@@ -11,10 +11,15 @@ function page() {
   const [loginError, setLoginError] = useState(null);
   const [checked, setChecked] = useState(false);
 
+  const handleCheck = async () => {
+    setChecked(!checked);
+  };
+
   // if already logged in redirect to / page
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    const sessionToken = sessionStorage.getItem("sessionToken");
+    if (token || sessionToken) {
       router.replace("/");
     }
   }, [router]);
@@ -33,6 +38,9 @@ function page() {
       const result = await res.json();
       if (result?.token && checked) {
         localStorage.setItem("token", JSON.stringify(result.token));
+        router.push("/");
+      } else {
+        sessionStorage.setItem("sessionToken", JSON.stringify(result.token));
         router.push("/");
       }
     } catch (error) {
@@ -61,7 +69,7 @@ function page() {
         </div>
         <div className={styles.formGroup}>
           <input className={styles.checkbox} type="checkbox" id="checkbox" />
-          <label htmlFor="checkbox" onClick={() => setChecked(!checked)}>
+          <label htmlFor="checkbox" onClick={handleCheck}>
             remember me
           </label>
         </div>

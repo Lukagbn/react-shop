@@ -14,12 +14,14 @@ function page() {
   };
   const handleClick = () => {
     localStorage.removeItem("token");
+    sessionStorage.removeItem("sessionToken");
     window.location.reload();
   };
   useEffect(() => {
     fetchData();
     const token = localStorage.getItem("token");
-    if (!token) {
+    const sessionToken = sessionStorage.getItem("sessionToken");
+    if (!(token || sessionToken)) {
       router.push("/");
     }
   });

@@ -15,7 +15,8 @@ function page() {
   useEffect(() => {
     fetchCartData();
     const token = localStorage.getItem("token");
-    if (token) {
+    const sessionToken = sessionStorage.getItem("sessionToken");
+    if (token || sessionToken) {
       setHasToken(!hasToken);
     }
   }, []);
