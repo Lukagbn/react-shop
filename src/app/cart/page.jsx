@@ -20,7 +20,7 @@ function page() {
     }
   }, []);
   if (!hasToken) {
-    return <div>you must sign in ro continiue!</div>;
+    return <div>you must log in ro continiue!</div>;
   }
   if (!cartData) {
     return <div className={styles.loadingData}>loading cart</div>;

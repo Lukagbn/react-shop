@@ -9,6 +9,7 @@ function page() {
   const [username, setUsername] = useState("");
   const [password, setsetPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
+  const [checked, setChecked] = useState(false);
 
   // if already logged in redirect to / page
   useEffect(() => {
@@ -30,7 +31,7 @@ function page() {
         body: JSON.stringify({ username: username, password: password }),
       });
       const result = await res.json();
-      if (result?.token) {
+      if (result?.token && checked) {
         localStorage.setItem("token", JSON.stringify(result.token));
         router.push("/");
       }
@@ -38,6 +39,7 @@ function page() {
       setLoginError("error occured");
       console.error(error);
     }
+    window.location.reload();
   };
   return (
     <div className={styles.formContainer}>
@@ -59,7 +61,9 @@ function page() {
         </div>
         <div className={styles.formGroup}>
           <input className={styles.checkbox} type="checkbox" id="checkbox" />
-          <label htmlFor="checkbox">remember me</label>
+          <label htmlFor="checkbox" onClick={() => setChecked(!checked)}>
+            remember me
+          </label>
         </div>
         <button className={styles.logInBtn} type="submit">
           log in
