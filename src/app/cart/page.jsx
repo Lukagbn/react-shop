@@ -2,18 +2,19 @@
 import React, { useEffect, useState } from "react";
 import layout from "@/app/layout.module.css";
 import styles from "./page.module.css";
-import CartItem from "@/components/CartItem/CartItem";
+import Link from "next/link";
+import { useAppSelector } from "@/lib/hook";
+import Image from "next/image";
 
 function page() {
-  const [cartData, setCartData] = useState(null);
+  const cartProducts = useAppSelector((state) => state.cart.cartProducts);
+  console.log(cartProducts);
+
+  const loggedUser = useAppSelector((state) => state.user);
+  console.log(loggedUser);
   const [hasToken, setHasToken] = useState(false);
-  const fetchCartData = async () => {
-    const res = await fetch("https://fakestoreapi.com/carts/2");
-    const response = await res.json();
-    return setCartData(response.products);
-  };
+
   useEffect(() => {
-    fetchCartData();
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
     if (token || sessionToken) {
@@ -23,9 +24,7 @@ function page() {
   if (!hasToken) {
     return <div>you must log in ro continiue!</div>;
   }
-  if (!cartData) {
-    return <div className={styles.loadingData}>loading cart</div>;
-  }
+
   return (
     <main className={`${styles.cartContainer} ${layout.container}`}>
       <div className={styles.cartItemsHeader}>
@@ -33,13 +32,36 @@ function page() {
         <div>QUANTITY</div>
         <div>PRICE</div>
       </div>
-      {cartData.map((item) => (
-        <CartItem
-          key={item.productId}
-          item={item}
-          cartData={cartData}
-          setCartData={setCartData}
-        />
+      {cartProducts?.map((item) => (
+        <div className={styles.cartItem} key={item.id}>
+          <div className={styles.cartHeadWrapper}>
+            <Link href={`/products/details/${item.productId}`}>
+              <Image src={item.image} width={80} height={90} alt={item.title} />
+            </Link>
+            <div className={styles.cartImgTextWrapper}>
+              <p>{item.title}</p>
+              <h5>{item.category}</h5>
+            </div>
+          </div>
+          <div className={styles.cartBodyWrapper}>
+            <div className={styles.cartQuantityContainer}>
+              {/* disabled={number === 1} */}
+              <button className={styles.plus}>-</button>
+              <p>{item.quantity}</p>
+              {/* disabled={number === 10} */}
+              <button className={styles.subtract}>+</button>
+            </div>
+            <div>
+              {/* {(item.price * number).toFixed(1)} */}
+              <span>${item.price * item.quantity}</span>
+            </div>
+            <div>
+              <button>
+                <Image src={"/bin.svg"} width={20} height={20} alt="bin" />
+              </button>
+            </div>
+          </div>
+        </div>
       ))}
     </main>
   );

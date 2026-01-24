@@ -5,11 +5,25 @@ import { useParams } from "next/navigation";
 import layout from "@/app/layout.module.css";
 import Image from "next/image";
 import StarRating from "@/components/StarRating/StarRating";
+import { useAppDispatch, useAppSelector } from "@/lib/hook";
+import Link from "next/link";
+import { addToCart } from "@/lib/slices/cartSlice";
 
 function page() {
   const { id } = useParams();
   const [singleProduct, setSingleProduct] = useState(null);
+  const [hasToken, setHasToken] = useState(false);
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const hadleAddToCart = () => {
+    dispatch(addToCart(singleProduct));
+  };
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const sessionToken = sessionStorage.getItem("sessionToken");
+    if (token || sessionToken) {
+      setHasToken(!hasToken);
+    }
     fetch(`https://fakestoreapi.com/products/${id}`)
       .then((res) => res.json())
       .then((resp) => setSingleProduct(resp));
@@ -17,6 +31,7 @@ function page() {
   if (!singleProduct) {
     return <div className={styles.loadingData}>Loading product</div>;
   }
+  console.log(user.isLoggedIn);
   return (
     <section className={`${layout.container} ${styles.cardSection}`}>
       <div className={styles.card}>
@@ -38,6 +53,11 @@ function page() {
           <h3 className={styles.category}>{singleProduct.category}</h3>
           <p>{singleProduct.description}</p>
           <span className={styles.productPrice}>${singleProduct.price}</span>
+          {user.isLoggedIn || hasToken ? (
+            <button onClick={hadleAddToCart}>Add to cart</button>
+          ) : (
+            <Link href={"/login"}>Log in</Link>
+          )}
         </div>
       </div>
     </section>

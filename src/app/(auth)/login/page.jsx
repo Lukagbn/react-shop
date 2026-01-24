@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/lib/hook";
+import { updateUser } from "@/lib/slices/userSlice";
 
 function page() {
   const router = useRouter();
@@ -10,7 +12,9 @@ function page() {
   const [password, setsetPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
   const [checked, setChecked] = useState(false);
-
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
+  console.log(user);
   const handleCheck = async () => {
     setChecked(!checked);
   };
@@ -36,6 +40,9 @@ function page() {
         body: JSON.stringify({ username: username, password: password }),
       });
       const result = await res.json();
+      const userData = await fetch("https://fakestoreapi.com/users/1");
+      const parsedUserData = await userData.json();
+      dispatch(updateUser(parsedUserData));
       if (result?.token && checked) {
         localStorage.setItem("token", JSON.stringify(result.token));
         router.push("/");
