@@ -3,28 +3,36 @@ import React, { useEffect, useState } from "react";
 import layout from "@/app/layout.module.css";
 import styles from "./page.module.css";
 import Link from "next/link";
-import { useAppSelector } from "@/lib/hook";
+import { useAppDispatch, useAppSelector } from "@/lib/hook";
 import Image from "next/image";
+import { deleteFromCart } from "@/lib/slices/cartSlice";
 
 function page() {
+  const dispatch = useAppDispatch();
   const cartProducts = useAppSelector((state) => state.cart.cartProducts);
-  console.log(cartProducts);
-
-  const loggedUser = useAppSelector((state) => state.user);
-  console.log(loggedUser);
   const [hasToken, setHasToken] = useState(false);
-
-  useEffect(() => {
+  const checkUser = async () => {
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
     if (token || sessionToken) {
       setHasToken(!hasToken);
     }
+  };
+  const handleDelete = (id) => {
+    console.log("Deleting ID:", id);
+    dispatch(deleteFromCart(id));
+  };
+  useEffect(() => {
+    checkUser();
   }, []);
   if (!hasToken) {
-    return <div>you must log in ro continiue!</div>;
+    return (
+      <div className={layout.container}>you must log in ro continiue!</div>
+    );
   }
-
+  if (hasToken && cartProducts.length === 0) {
+    return <div className={layout.container}>Cart is empty</div>;
+  }
   return (
     <main className={`${styles.cartContainer} ${layout.container}`}>
       <div className={styles.cartItemsHeader}>
@@ -56,7 +64,7 @@ function page() {
               <span>${item.price * item.quantity}</span>
             </div>
             <div>
-              <button>
+              <button onClick={() => handleDelete(item.id)}>
                 <Image src={"/bin.svg"} width={20} height={20} alt="bin" />
               </button>
             </div>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import layout from "@/app/layout.module.css";
 import styles from "./page.module.css";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 function page() {
   const router = useRouter();
@@ -17,16 +17,19 @@ function page() {
     sessionStorage.removeItem("sessionToken");
     window.location.reload();
   };
-  useEffect(() => {
-    fetchData();
+  const checkUser = async () => {
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
     if (!(token || sessionToken)) {
-      router.push("/");
+      redirect("/");
     }
+  };
+  useEffect(() => {
+    fetchData();
+    checkUser();
   }, []);
   if (!userData) {
-    return <div>loading user</div>;
+    return <div>Loading please wait!</div>;
   }
   return (
     <div className={`${styles.profileContainer} ${layout.container}`}>

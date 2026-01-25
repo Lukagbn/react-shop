@@ -20,7 +20,11 @@ const cartSlice = createSlice({
         });
       }
     },
-    deleteFromCart: (state, action) => {},
+    deleteFromCart: (state, action) => {
+      state.cartProducts = state.cartProducts.filter(
+        (product) => product.id !== action.payload,
+      );
+    },
   },
 });
 export const { addToCart, deleteFromCart } = cartSlice.actions;

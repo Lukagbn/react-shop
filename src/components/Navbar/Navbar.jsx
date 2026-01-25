@@ -16,7 +16,7 @@ function Navbar() {
   const NAVBAR_LIST = [
     {
       name: "Products",
-      url: "/",
+      url: "/products",
       img: "/products.svg",
       className: styles.products,
     },
@@ -28,12 +28,15 @@ function Navbar() {
     },
     { name: "Cart", url: "/cart", img: "/cart.svg", className: styles.cart },
   ];
-  useEffect(() => {
+  const checkUser = async () => {
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
     if (token || sessionToken) {
       dispatch(restoreUser());
     }
+  };
+  useEffect(() => {
+    checkUser();
   }, []);
   return (
     <header className={`${styles.header} ${layout.container}`}>

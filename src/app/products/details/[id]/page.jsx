@@ -18,20 +18,23 @@ function page() {
   const hadleAddToCart = () => {
     dispatch(addToCart(singleProduct));
   };
-  useEffect(() => {
+  const checkUser = async () => {
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
     if (token || sessionToken) {
       setHasToken(!hasToken);
     }
+  };
+  useEffect(() => {
+    checkUser();
     fetch(`https://fakestoreapi.com/products/${id}`)
       .then((res) => res.json())
       .then((resp) => setSingleProduct(resp));
   }, []);
+
   if (!singleProduct) {
     return <div className={styles.loadingData}>Loading product</div>;
   }
-  console.log(user.isLoggedIn);
   return (
     <section className={`${layout.container} ${styles.cardSection}`}>
       <div className={styles.card}>
@@ -56,7 +59,7 @@ function page() {
           {user.isLoggedIn || hasToken ? (
             <button onClick={hadleAddToCart}>Add to cart</button>
           ) : (
-            <Link href={"/login"}>Log in</Link>
+            <Link href={"/login"}>Log in to add use cart</Link>
           )}
         </div>
       </div>

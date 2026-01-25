@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
-import { useAppDispatch, useAppSelector } from "@/lib/hook";
+import { useAppDispatch } from "@/lib/hook";
 import { updateUser } from "@/lib/slices/userSlice";
 
 function page() {
@@ -13,17 +13,10 @@ function page() {
   const [loginError, setLoginError] = useState(null);
   const [checked, setChecked] = useState(false);
   const dispatch = useAppDispatch();
+
   const handleCheck = async () => {
     setChecked(!checked);
   };
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const sessionToken = sessionStorage.getItem("sessionToken");
-    if (token || sessionToken) {
-      router.replace("/");
-    }
-  }, []);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (username.length < 4 || password.length < 7) {
@@ -51,6 +44,18 @@ function page() {
       console.error(error);
     }
   };
+  const checkUser = async () => {
+    const token = localStorage.getItem("token");
+    const sessionToken = sessionStorage.getItem("sessionToken");
+    if (token || sessionToken) {
+      redirect("/");
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
   return (
     <div className={styles.formContainer}>
       <form onSubmit={handleSubmit} noValidate>
