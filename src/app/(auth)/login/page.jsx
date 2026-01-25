@@ -13,20 +13,16 @@ function page() {
   const [loginError, setLoginError] = useState(null);
   const [checked, setChecked] = useState(false);
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
-  console.log(user);
   const handleCheck = async () => {
     setChecked(!checked);
   };
-
-  // if already logged in redirect to / page
   useEffect(() => {
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
     if (token || sessionToken) {
       router.replace("/");
     }
-  }, [router]);
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -54,36 +50,40 @@ function page() {
       setLoginError("error occured");
       console.error(error);
     }
-    window.location.reload();
   };
   return (
     <div className={styles.formContainer}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <h1 className={styles.formHeader}>log in</h1>
         <div className={styles.formGroup}>
           <input
             type="text"
-            placeholder="username"
-            onChange={(event) => setUsername(event.target.value)}
+            required
+            onChange={(e) => setUsername(e.target.value)}
           />
+          <label>Username</label>
         </div>
         <div className={styles.formGroup}>
           <input
             type="password"
-            placeholder="password"
-            onChange={(event) => setsetPassword(event.target.value)}
+            required
+            onChange={(e) => setsetPassword(e.target.value)}
           />
+          <label>Password</label>
         </div>
-        <div className={styles.formGroup}>
-          <input className={styles.checkbox} type="checkbox" id="checkbox" />
-          <label htmlFor="checkbox" onClick={handleCheck}>
-            remember me
-          </label>
+        <div className={styles.checkboxGroup}>
+          <input
+            type="checkbox"
+            id="checkbox"
+            checked={checked}
+            onChange={handleCheck}
+          />
+          <label htmlFor="checkbox">Remember me</label>
         </div>
         <button className={styles.logInBtn} type="submit">
           log in
         </button>
-        <p>
+        <p className={styles.link}>
           Dont have an account?{" "}
           <Link className={styles.singupLink} href={"/register"}>
             Sign up

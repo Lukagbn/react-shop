@@ -5,11 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import layout from "@/app/layout.module.css";
 import { usePathname } from "next/navigation";
-import { boolean } from "yup";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "@/lib/hook";
+import { restoreUser } from "@/lib/slices/userSlice";
 
 function Navbar() {
   const pathname = usePathname();
-  const [hasToken, setHasToken] = useState(null);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const dispatch = useAppDispatch();
   const NAVBAR_LIST = [
     {
       name: "Products",
@@ -18,8 +21,8 @@ function Navbar() {
       className: styles.products,
     },
     {
-      name: hasToken ? "Profile" : "Log In",
-      url: hasToken ? "/profile" : "/login",
+      name: isLoggedIn ? "Profile" : "Log In",
+      url: isLoggedIn ? "/profile" : "/login",
       img: "/profile.svg",
       className: styles.profile,
     },
@@ -29,7 +32,7 @@ function Navbar() {
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
     if (token || sessionToken) {
-      setHasToken(!!(token || sessionToken));
+      dispatch(restoreUser());
     }
   }, []);
   return (

@@ -24,7 +24,7 @@ function page() {
     if (!(token || sessionToken)) {
       router.push("/");
     }
-  });
+  }, []);
   if (!userData) {
     return <div>loading user</div>;
   }
