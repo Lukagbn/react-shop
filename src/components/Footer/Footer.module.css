@@ -1,5 +1,8 @@
 .footer {
   margin-bottom: 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 }
 .footer ul {
   display: grid;
@@ -8,12 +11,10 @@
   justify-items: center;
   align-items: center;
   list-style: none;
-  background-color: #ffff;
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 3px 3px 14px 0px #cccc;
   width: 100%;
   gap: 20px;
+  color: #ffff;
 }
 .interest {
   grid-row: 2;
