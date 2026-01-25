@@ -5,7 +5,11 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/lib/hook";
 import Image from "next/image";
-import { deleteFromCart } from "@/lib/slices/cartSlice";
+import {
+  addToCart,
+  deleteFromCart,
+  decreaseQuantity,
+} from "@/lib/slices/cartSlice";
 
 function page() {
   const dispatch = useAppDispatch();
@@ -21,6 +25,12 @@ function page() {
   const handleDelete = (id) => {
     console.log("Deleting ID:", id);
     dispatch(deleteFromCart(id));
+  };
+  const handleIncrease = (item) => {
+    dispatch(addToCart(item));
+  };
+  const handleDecrease = (item) => {
+    dispatch(decreaseQuantity(item));
   };
   useEffect(() => {
     checkUser();
@@ -53,15 +63,22 @@ function page() {
           </div>
           <div className={styles.cartBodyWrapper}>
             <div className={styles.cartQuantityContainer}>
-              {/* disabled={number === 1} */}
-              <button className={styles.plus}>-</button>
+              <button
+                className={styles.substract}
+                onClick={() => handleDecrease(item)}
+              >
+                -
+              </button>
               <p>{item.quantity}</p>
-              {/* disabled={number === 10} */}
-              <button className={styles.subtract}>+</button>
+              <button
+                className={styles.plus}
+                onClick={() => handleIncrease(item)}
+              >
+                +
+              </button>
             </div>
             <div>
-              {/* {(item.price * number).toFixed(1)} */}
-              <span>${item.price * item.quantity}</span>
+              <span>${(item.price * item.quantity).toFixed(2)}</span>
             </div>
             <div>
               <button onClick={() => handleDelete(item.id)}>
