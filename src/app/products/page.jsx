@@ -5,9 +5,11 @@ import layout from "@/app/layout.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import StarRating from "@/components/StarRating/StarRating";
-import { useAppSelector } from "@/lib/hook";
+import { useAppDispatch, useAppSelector } from "@/lib/hook";
+import { addToCart } from "@/lib/slices/cartSlice";
 
 function Page() {
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const [hasToken, setHasToken] = useState(false);
   const [product, setProduct] = useState(null);
@@ -23,6 +25,11 @@ function Page() {
       setHasToken(!hasToken);
     }
   };
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+    console.log(item);
+  };
+  console.log(product);
   useEffect(() => {
     checkUser();
     fetchProducts();
@@ -51,7 +58,9 @@ function Page() {
               <StarRating rating={item.rating.rate} count={item.rating.count} />
               <h2>${item.price}</h2>
               {user.isLoggedIn || hasToken ? (
-                <button onClick={hadleAddToCart}>Add to cart</button>
+                <button onClick={() => handleAddToCart(item)}>
+                  Add to cart
+                </button>
               ) : (
                 <Link href={"/login"}>Log in to add use cart</Link>
               )}

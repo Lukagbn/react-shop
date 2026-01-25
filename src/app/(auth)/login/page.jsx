@@ -94,7 +94,7 @@ function page() {
             Sign up
           </Link>
         </p>
-        {loginError && <div>{loginError}</div>}
+        {loginError && <div className={styles.errorMessage}>{loginError}</div>}
       </form>
     </div>
   );

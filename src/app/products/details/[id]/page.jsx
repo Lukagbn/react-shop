@@ -15,7 +15,7 @@ function page() {
   const [hasToken, setHasToken] = useState(false);
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const hadleAddToCart = () => {
+  const handleAddToCart = () => {
     dispatch(addToCart(singleProduct));
   };
   const checkUser = async () => {
@@ -57,7 +57,7 @@ function page() {
           <p>{singleProduct.description}</p>
           <span className={styles.productPrice}>${singleProduct.price}</span>
           {user.isLoggedIn || hasToken ? (
-            <button onClick={hadleAddToCart}>Add to cart</button>
+            <button onClick={handleAddToCart}>Add to cart</button>
           ) : (
             <Link href={"/login"}>Log in to add use cart</Link>
           )}

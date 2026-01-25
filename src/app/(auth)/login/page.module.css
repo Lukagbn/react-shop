@@ -19,22 +19,11 @@
   color: #fff;
   animation: fadeIn 0.6s ease;
 }
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 .formHeader {
   text-align: center;
   font-size: 28px;
   letter-spacing: 1px;
 }
-/* Floating input */
 .formGroup {
   position: relative;
 }
@@ -64,7 +53,6 @@
   font-size: 12px;
   color: #fff;
 }
-/* Checkbox */
 .checkboxGroup {
   display: flex;
   align-items: center;
@@ -75,7 +63,6 @@
   accent-color: #ffd86b;
   cursor: pointer;
 }
-/* Button */
 .logInBtn {
   margin-top: 10px;
   padding: 12px;
@@ -91,7 +78,6 @@
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(255, 216, 107, 0.5);
 }
-/* Links */
 .link {
   text-align: center;
   font-size: 14px;
@@ -104,9 +90,18 @@
 .singupLink:hover {
   text-decoration: underline;
 }
-/* Error */
-form div:last-child {
+.errorMessage {
   color: #ffb4b4;
   text-align: center;
   font-size: 14px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
