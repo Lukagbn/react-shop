@@ -1,28 +1,43 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import layout from "@/app/layout.module.css";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "@/lib/hook";
+import { restoreUser } from "@/lib/slices/userSlice";
 
 function Navbar() {
   const pathname = usePathname();
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const dispatch = useAppDispatch();
   const NAVBAR_LIST = [
     {
       name: "Products",
-      url: "/",
+      url: "/products",
       img: "/products.svg",
       className: styles.products,
     },
     {
-      name: "Profile",
-      url: "/profile",
+      name: isLoggedIn ? "Profile" : "Log In",
+      url: isLoggedIn ? "/profile" : "/login",
       img: "/profile.svg",
       className: styles.profile,
     },
     { name: "Cart", url: "/cart", img: "/cart.svg", className: styles.cart },
   ];
+  const checkUser = async () => {
+    const token = localStorage.getItem("token");
+    const sessionToken = sessionStorage.getItem("sessionToken");
+    if (token || sessionToken) {
+      dispatch(restoreUser());
+    }
+  };
+  useEffect(() => {
+    checkUser();
+  }, []);
   return (
     <header className={`${styles.header} ${layout.container}`}>
       <ul>

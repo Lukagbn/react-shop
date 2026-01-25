@@ -2,6 +2,7 @@
   background-color: white;
   border-radius: 10px;
   padding: 20px;
+  animation: fadeIn 0.6s ease;
 }
 .cartItemsHeader {
   display: grid;
@@ -22,6 +23,69 @@
   animation: 1s hide ease-in-out infinite;
   color: #ffff;
 }
+.cartItem {
+  display: grid;
+  align-items: center;
+  padding-block: 10px;
+  gap: 10px;
+  grid-template-columns: repeat(2, auto);
+  border-bottom: 1px solid #ccc;
+}
+.cartHeadWrapper {
+  display: flex;
+  align-items: self-start;
+  flex-direction: column;
+  max-width: 100px;
+  width: 100%;
+  gap: 10px;
+}
+.cartHeadWrapper p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-decoration: underline;
+}
+.cartImgTextWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cartBodyWrapper {
+  display: flex;
+  max-width: 500px;
+  width: 100%;
+  gap: 20px;
+  align-items: center;
+}
+.cartQuantityContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cartQuantityContainer p {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 10px;
+  width: 30px;
+  text-align: center;
+}
+.plus,
+.subtract {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #000;
+  scale: 1.5;
+  background-color: transparent;
+}
+.cartItem button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
 @keyframes hide {
   0% {
     opacity: 1;
@@ -31,5 +95,42 @@
   }
   100% {
     opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 600px) {
+  .cartItem {
+    padding-block: 20px;
+  }
+  .cartBodyWrapper {
+    justify-content: space-between;
+  }
+  .cartHeadWrapper img {
+    width: 90px;
+    height: 70px;
+  }
+}
+@media (min-width: 1300px) {
+  .cartItem {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cartHeadWrapper {
+    flex-direction: row;
+    align-items: center;
+    max-width: 500px;
+    gap: 30px;
+  }
+  .cartHeadWrapper img {
+    width: 130px;
+    height: 120px;
   }
 }
