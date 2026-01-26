@@ -2,22 +2,21 @@
 import React, { useEffect, useState } from "react";
 import layout from "@/app/layout.module.css";
 import styles from "./page.module.css";
-import { redirect, useRouter } from "next/navigation";
-
+import { redirect } from "next/navigation";
+import Image from "next/image";
 function page() {
-  const router = useRouter();
   const [userData, setUserData] = useState(null);
   const fetchData = async () => {
     const resp = await fetch("https://fakestoreapi.com/users/3");
     const user = await resp.json();
-    return setUserData(user);
+    setUserData(user);
   };
   const handleClick = () => {
     localStorage.removeItem("token");
     sessionStorage.removeItem("sessionToken");
     window.location.reload();
   };
-  const checkUser = async () => {
+  const checkUser = () => {
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
     if (!(token || sessionToken)) {
@@ -28,41 +27,61 @@ function page() {
     fetchData();
     checkUser();
   }, []);
-  if (!userData) {
-    return <div>Loading please wait!</div>;
-  }
+  if (!userData)
+    return (
+      <h2 className={`${layout.container} ${styles.loading}`}>
+        Loading please wait…
+      </h2>
+    );
   return (
-    <div className={`${styles.profileContainer} ${layout.container}`}>
-      <h1>Welcome {userData.username}!</h1>
-      <ul>
-        <h2>Details:</h2>
-        <li>
-          <span>firstname:</span> {userData.name.firstname}
-        </li>
-        <li>
-          <span>lastname:</span> {userData.name.lastname}
-        </li>
-        <li>
-          <span>phone:</span> {userData.phone}
-        </li>
-        <h2>Location:</h2>
-        <ul>
-          <li>
-            <span>city:</span> {userData.address.city}
-          </li>
-          <li>
-            <span>street:</span> {userData.address.street}
-          </li>
-          <li>
-            <span>number:</span> {userData.address.number}
-          </li>
-          <li>
-            <span>zipcode:</span> {userData.address.zipcode}
-          </li>
-        </ul>
-        <button onClick={handleClick}>log out</button>
-      </ul>
-    </div>
+    <section className={`${layout.container} ${styles.profileContainer}`}>
+      <div className={styles.profileCard}>
+        <div className={styles.avatarWrapper}>
+          <Image
+            src="/profile.jpg"
+            alt="Profile picture"
+            width={120}
+            height={120}
+            className={styles.avatar}
+          />
+        </div>
+        <h1>Welcome, {userData.username}</h1>
+        <div className={styles.section}>
+          <h2>Personal Details</h2>
+          <ul>
+            <li>
+              <span>First name:</span> {userData.name.firstname}
+            </li>
+            <li>
+              <span>Last name:</span> {userData.name.lastname}
+            </li>
+            <li>
+              <span>Phone:</span> {userData.phone}
+            </li>
+          </ul>
+        </div>
+        <div className={styles.section}>
+          <h2>Location</h2>
+          <ul>
+            <li>
+              <span>City:</span> {userData.address.city}
+            </li>
+            <li>
+              <span>Street:</span> {userData.address.street}
+            </li>
+            <li>
+              <span>Number:</span> {userData.address.number}
+            </li>
+            <li>
+              <span>Zipcode:</span> {userData.address.zipcode}
+            </li>
+          </ul>
+        </div>
+        <button className={styles.logoutBtn} onClick={handleClick}>
+          Log out
+        </button>
+      </div>
+    </section>
   );
 }
 

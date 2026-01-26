@@ -86,6 +86,16 @@
   border: none;
   cursor: pointer;
 }
+.loginBtn {
+  color: #ffd86b;
+}
+.loginBtn:hover {
+  text-decoration: underline;
+}
+.loadingMessage {
+  color: #ffff;
+  margin: auto;
+}
 @keyframes hide {
   0% {
     opacity: 1;

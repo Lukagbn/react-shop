@@ -31,9 +31,10 @@ function page() {
       .then((res) => res.json())
       .then((resp) => setSingleProduct(resp));
   }, []);
-
   if (!singleProduct) {
-    return <div className={styles.loadingData}>Loading product</div>;
+    return (
+      <h2 className={styles.loadingData}>Loading product please wait...</h2>
+    );
   }
   return (
     <section className={`${layout.container} ${styles.cardSection}`}>
@@ -55,12 +56,14 @@ function page() {
           />
           <h3 className={styles.category}>{singleProduct.category}</h3>
           <p>{singleProduct.description}</p>
-          <span className={styles.productPrice}>${singleProduct.price}</span>
-          {user.isLoggedIn || hasToken ? (
-            <button onClick={handleAddToCart}>Add to cart</button>
-          ) : (
-            <Link href={"/login"}>Log in to add use cart</Link>
-          )}
+          <div className={styles.btnContainer}>
+            <span className={styles.productPrice}>${singleProduct.price}</span>
+            {user.isLoggedIn || hasToken ? (
+              <button onClick={handleAddToCart}>Add to cart</button>
+            ) : (
+              <Link href={"/login"}>Log in to use cart</Link>
+            )}
+          </div>
         </div>
       </div>
     </section>
