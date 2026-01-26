@@ -1,18 +1,86 @@
 .profileContainer {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
+  background: linear-gradient(45deg, #667eea, #ac77e2);
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  animation: fadeIn 0.6s ease;
+  color: #f1f3ff;
+}
+.profileCard {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  animation: fadeIn 0.6s ease;
+  gap: 25px;
 }
-.profileContainer ul {
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profileCard h1 {
+  font-size: 26px;
+  font-weight: 700;
+}
+.section {
+  width: 100%;
+}
+.section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #e6e9ff;
+}
+.section ul {
   list-style: none;
+  padding: 0;
 }
-.profileContainer ul li {
-  font-size: 22px;
+.section li {
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+.section li span {
+  font-weight: 600;
+  color: #cfd4ff;
+}
+.logoutBtn {
+  margin-top: 10px;
+  padding: 12px 20px;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  background: #fff3b0;
+  color: #3a3a3a;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+.logoutBtn:hover {
+  background: #ffe68a;
+  transform: translateY(-2px);
+}
+.loading {
+  color: #fff;
+  display: grid;
+  text-align: center;
+  margin: auto;
+  animation: 1s hide ease-in-out infinite;
+}
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @keyframes fadeIn {
   from {
@@ -22,5 +90,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@media (min-width: 1400px) {
+  .profileCard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+  .logoutBtn {
+    grid-column: 2;
   }
 }

@@ -29,14 +29,20 @@ function Page() {
     dispatch(addToCart(item));
     console.log(item);
   };
-  console.log(product);
   useEffect(() => {
     checkUser();
     fetchProducts();
   }, []);
   if (!product) {
     return (
-      <h2 className={styles.loadingData}>products loading, please wait...</h2>
+      <h2 className={styles.loadingMessage}>
+        Products loading, please wait{" "}
+        <div className={styles.dotContainer}>
+          <span className={styles.dot}>.</span>
+          <span className={styles.dot}>.</span>
+          <span className={styles.dot}>.</span>
+        </div>
+      </h2>
     );
   }
   return (
@@ -62,7 +68,7 @@ function Page() {
                   Add to cart
                 </button>
               ) : (
-                <Link href={"/login"}>Log in to add use cart</Link>
+                <Link href={"/login"}>Log in to use cart</Link>
               )}
             </div>
           </div>

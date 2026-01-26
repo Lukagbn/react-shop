@@ -12,6 +12,7 @@ function page() {
   const [password, setsetPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
   const [checked, setChecked] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleCheck = async () => {
@@ -51,7 +52,6 @@ function page() {
       redirect("/");
     }
   };
-
   useEffect(() => {
     checkUser();
   }, []);
@@ -70,11 +70,18 @@ function page() {
         </div>
         <div className={styles.formGroup}>
           <input
-            type="password"
+            type={passwordVisible ? "text" : "password"}
             required
             onChange={(e) => setsetPassword(e.target.value)}
           />
           <label>Password</label>
+          <button
+            className={styles.passwordVisible}
+            type="button"
+            onClick={() => setPasswordVisible(!passwordVisible)}
+          >
+            {passwordVisible ? "show" : "hide"}
+          </button>
         </div>
         <div className={styles.checkboxGroup}>
           <input

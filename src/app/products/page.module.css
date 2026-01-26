@@ -7,18 +7,20 @@
 }
 .card {
   max-width: 300px;
-  min-height: 400px;
+  height: 100%;
   width: 100%;
   padding: 35px;
-  background-color: #ffff;
+  background: linear-gradient(45deg, #667eea, #ac77e2);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   border-radius: 10px;
   transition: 0.5s ease-in-out;
+  color: white;
+  gap: 10px;
 }
 .card:hover {
-  box-shadow: 5px 5px 10px 5px #bebebecc;
+  box-shadow: 0 20px 40px #00000040;
 }
 .card h3 {
   display: -webkit-box;
@@ -26,9 +28,45 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
+.card h2 {
+  color: #fff3b0;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+}
 .card img {
   display: block;
   margin: 0px auto;
+}
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cardBody button {
+  justify-self: center;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffd86b, #ff9f43);
+  border: none;
+  border-radius: 30px;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+.cardBody button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px #ffd86b80;
+}
+.cardBody a {
+  color: #ffd86b;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+}
+.cardBody a:hover {
+  text-decoration: underline;
 }
 .starContainer {
   display: flex;
@@ -37,14 +75,26 @@
 .location {
   padding-bottom: 10px;
 }
-.loadingData {
-  position: absolute;
-  font-size: 22px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: 1s hide ease-in-out infinite;
+.loadingMessage {
+  margin: auto;
+  animation: hide 1s ease-in-out infinite;
   color: #ffff;
+  display: flex;
+  gap: 5px;
+}
+.dotContainer {
+  position: relative;
+  display: flex;
+  gap: 5px;
+}
+.dotContainer .dot:nth-of-type(1) {
+  animation: dotAnimation 0.7s ease-in-out infinite;
+}
+.dotContainer .dot:nth-of-type(2) {
+  animation: dotAnimation 0.7s ease-in-out infinite 0.4s;
+}
+.dotContainer .dot:nth-of-type(3) {
+  animation: dotAnimation 0.7s ease-in-out infinite 0.6s;
 }
 @keyframes hide {
   0% {
@@ -77,5 +127,16 @@
   .cardContainer {
     grid-template-columns: repeat(4, auto);
     justify-content: space-evenly;
+  }
+}
+@keyframes dotAnimation {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }

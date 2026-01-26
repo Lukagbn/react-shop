@@ -1,47 +1,96 @@
-.main {
+.formContainer {
+  max-width: 335px;
+  width: 100%;
+  margin: auto;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  margin-block: 30px;
 }
-.container {
-  max-width: 300px;
+.formContainer form {
   width: 100%;
+  padding: 35px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background-color: #ffff;
-  color: #000;
-  padding: 10px;
-  border-radius: 10px;
+  gap: 22px;
+  color: #fff;
+  animation: fadeIn 0.6s ease;
 }
-.formGroup input {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  outline: none;
-  border-radius: 5px;
-  border: 1px solid black;
-  background-color: #ffff;
-  color: #000;
+.formHeader {
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: 1px;
 }
-.submitBtn {
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  cursor: pointer;
-}
-.error {
-  color: red;
-}
-.passwordInput {
+.formInnerGroup {
   position: relative;
+}
+.formInnerGroup input {
+  width: 100%;
+  padding: 12px 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+}
+.formInnerGroup label {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+.formInnerGroup input:focus + label,
+.formInnerGroup input:valid + label {
+  top: 0px;
+  font-size: 12px;
+  color: #fff;
 }
 .passwordVisible {
   position: absolute;
-  right: 4%;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #ffd86b;
   cursor: pointer;
+  font-size: 13px;
+}
+.logInBtn {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ffd86b, #ff9f43);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.logInBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 216, 107, 0.5);
+}
+.errorMessage {
+  color: #ffb4b4;
+  font-size: 13px;
+  margin-top: 4px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,0 +1,16 @@
+.loadingMessage {
+  margin: auto;
+  color: #ffff;
+  animation: hide 1s ease-in-out infinite;
+}
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}

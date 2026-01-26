@@ -23,7 +23,6 @@ function page() {
     }
   };
   const handleDelete = (id) => {
-    console.log("Deleting ID:", id);
     dispatch(deleteFromCart(id));
   };
   const handleIncrease = (item) => {
@@ -37,11 +36,24 @@ function page() {
   }, []);
   if (!hasToken) {
     return (
-      <div className={layout.container}>you must log in ro continiue!</div>
+      <h2 className={styles.loadingMessage}>
+        you must{" "}
+        <Link className={styles.loginBtn} href={"/login"}>
+          log in
+        </Link>{" "}
+        to continiue!
+      </h2>
     );
   }
   if (hasToken && cartProducts.length === 0) {
-    return <div className={layout.container}>Cart is empty</div>;
+    return (
+      <h2 className={styles.loadingMessage}>
+        Cart is empty.{" "}
+        <Link className={styles.loginBtn} href={"/products"}>
+          Add products
+        </Link>
+      </h2>
+    );
   }
   return (
     <main className={`${styles.cartContainer} ${layout.container}`}>

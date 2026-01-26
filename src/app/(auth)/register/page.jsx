@@ -62,65 +62,76 @@ function page() {
     }
   };
   return (
-    <main className={styles.main}>
-      <form
-        className={styles.container}
-        onSubmit={handleSubmit(handleRegister)}
-      >
-        <h1>Register</h1>
+    <main className={styles.formContainer}>
+      <form onSubmit={handleSubmit(handleRegister)} noValidate>
+        <h1 className={styles.formHeader}>Register</h1>
         <div className={styles.formGroup}>
-          <input
-            {...register("firstName")}
-            type="text"
-            placeholder="firstname"
-          />
+          <div className={styles.formInnerGroup}>
+            <input {...register("firstName")} type="text" required />
+            <label>First name</label>
+          </div>
           {errors.firstName && (
-            <p className={styles.error}>{errors.firstName.message}</p>
+            <p className={styles.errorMessage}>{errors.firstName.message}</p>
           )}
         </div>
         <div className={styles.formGroup}>
-          <input {...register("lastName")} type="text" placeholder="lastname" />
+          <div className={styles.formInnerGroup}>
+            <input {...register("lastName")} type="text" required />
+            <label>Last name</label>
+          </div>
           {errors.lastName && (
-            <p className={styles.error}>{errors.lastName.message}</p>
+            <p className={styles.errorMessage}>{errors.lastName.message}</p>
           )}
         </div>
         <div className={styles.formGroup}>
-          <input {...register("age")} type="number" placeholder="age" />
-          {errors.age && <p className={styles.error}>{errors.age.message}</p>}
+          <div className={styles.formInnerGroup}>
+            <input {...register("age")} type="number" required />
+            <label>Age</label>
+          </div>
+          {errors.age && (
+            <p className={styles.errorMessage}>{errors.age.message}</p>
+          )}
         </div>
         <div className={styles.formGroup}>
-          <input {...register("email")} type="email" placeholder="email" />
+          <div className={styles.formInnerGroup}>
+            <input {...register("email")} type="email" required />
+            <label>Email</label>
+          </div>
           {errors.email && (
-            <p className={styles.error}>{errors.email.message}</p>
+            <p className={styles.errorMessage}>{errors.email.message}</p>
           )}
         </div>
         <div className={styles.formGroup}>
-          <div className={styles.passwordInput}>
+          <div className={styles.formInnerGroup}>
             <input
               {...register("password")}
               type={passwordVisible ? "text" : "password"}
-              placeholder="password"
+              required
             />
+            <label>Password</label>
             <button
-              className={styles.passwordVisible}
               type="button"
+              className={styles.passwordVisible}
               onClick={() => setPasswordVisible(!passwordVisible)}
             >
-              see password
+              {passwordVisible ? "hide" : "show"}
             </button>
           </div>
           {errors.password && (
-            <p className={styles.error}>{errors.password.message}</p>
+            <p className={styles.errorMessage}>{errors.password.message}</p>
           )}
         </div>
         <div className={styles.formGroup}>
-          <input {...register("phone")} type="number" placeholder="phone" />
+          <div className={styles.formInnerGroup}>
+            <input {...register("phone")} type="tel" required />
+            <label>Phone</label>
+          </div>
           {errors.phone && (
-            <p className={styles.error}>{errors.phone.message}</p>
+            <p className={styles.errorMessage}>{errors.phone.message}</p>
           )}
         </div>
-        <button className={styles.submitBtn} type="submit">
-          Submit
+        <button className={styles.logInBtn} type="submit">
+          Create account
         </button>
       </form>
     </main>
