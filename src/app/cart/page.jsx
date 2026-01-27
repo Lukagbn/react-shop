@@ -15,6 +15,7 @@ function page() {
   const dispatch = useAppDispatch();
   const cartProducts = useAppSelector((state) => state.cart.cartProducts);
   const [hasToken, setHasToken] = useState(false);
+  const getItemTotal = (item) => (item.price * item.quantity).toFixed(2);
   const checkUser = async () => {
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
@@ -73,33 +74,40 @@ function page() {
               <h5>{item.category}</h5>
             </div>
           </div>
-          <div className={styles.cartBodyWrapper}>
-            <div className={styles.cartQuantityContainer}>
-              <button
-                className={styles.substract}
-                onClick={() => handleDecrease(item)}
-              >
-                -
-              </button>
-              <p>{item.quantity}</p>
-              <button
-                className={styles.plus}
-                onClick={() => handleIncrease(item)}
-              >
-                +
-              </button>
-            </div>
-            <div>
-              <span>${(item.price * item.quantity).toFixed(2)}</span>
-            </div>
-            <div>
-              <button onClick={() => handleDelete(item.id)}>
-                <Image src={"/bin.svg"} width={20} height={20} alt="bin" />
-              </button>
-            </div>
+          <div className={styles.btnContainer}>
+            <button
+              className={styles.substract}
+              onClick={() => handleDecrease(item)}
+            >
+              -
+            </button>
+            <p className={styles.quantity}>{item.quantity}</p>
+            <button
+              className={styles.plus}
+              onClick={() => handleIncrease(item)}
+            >
+              +
+            </button>
           </div>
+          <div className={styles.priceContainer}>
+            <span>${getItemTotal(item)}</span>
+          </div>
+          <button
+            className={styles.removeBtn}
+            onClick={() => handleDelete(item.id)}
+          >
+            <Image src={"/bin.svg"} width={20} height={20} alt="bin" />
+          </button>
         </div>
       ))}
+      <div className={styles.cartSummary}>
+        <h3>
+          Total: $
+          {cartProducts
+            .reduce((total, item) => total + item.price * item.quantity, 0)
+            .toFixed(2)}
+        </h3>
+      </div>
     </main>
   );
 }
