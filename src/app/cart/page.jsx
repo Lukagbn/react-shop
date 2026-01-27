@@ -15,6 +15,21 @@ function page() {
   const dispatch = useAppDispatch();
   const cartProducts = useAppSelector((state) => state.cart.cartProducts);
   const [hasToken, setHasToken] = useState(false);
+  const [discount, setDiscount] = useState(0);
+  const totalPrice = () => {
+    return cartProducts.reduce(
+      (total, item) =>
+        total + item.price * item.quantity * (1 - discount / 100),
+      0,
+    );
+  };
+  const checkDiscount = (item) => {
+    if (item.target.value == 2026) {
+      setDiscount(10);
+    } else {
+      setDiscount(0);
+    }
+  };
   const getItemTotal = (item) => (item.price * item.quantity).toFixed(2);
   const checkUser = async () => {
     const token = localStorage.getItem("token");
@@ -101,12 +116,19 @@ function page() {
         </div>
       ))}
       <div className={styles.cartSummary}>
+        <div className={styles.formGroup}>
+          <input
+            type="text"
+            onChange={(event) => checkDiscount(event)}
+            required
+          />
+          <label>Promo Code</label>
+        </div>
         <h3>
-          Total: $
-          {cartProducts
-            .reduce((total, item) => total + item.price * item.quantity, 0)
-            .toFixed(2)}
+          Total: ${totalPrice().toFixed(2)}
+          {discount ? ` (With ${discount}% discount)` : ""}
         </h3>
+        <button>Proceed to checkout</button>
       </div>
     </main>
   );
