@@ -1,4 +1,10 @@
-.notFoundContainer {
-  text-align: center;
+.notFoundMessage {
   color: #ffff;
+  margin: auto;
+}
+.btnLink {
+  color: #ffd86b;
+}
+.btnLink:hover {
+  text-decoration: underline;
 }

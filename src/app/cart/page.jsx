@@ -54,7 +54,7 @@ function page() {
     return (
       <h2 className={styles.loadingMessage}>
         you must{" "}
-        <Link className={styles.loginBtn} href={"/login"}>
+        <Link className={styles.btnLink} href={"/login"}>
           log in
         </Link>{" "}
         to continiue!
@@ -65,7 +65,7 @@ function page() {
     return (
       <h2 className={styles.loadingMessage}>
         Cart is empty.{" "}
-        <Link className={styles.loginBtn} href={"/products"}>
+        <Link className={styles.btnLink} href={"/products"}>
           Add products
         </Link>
       </h2>

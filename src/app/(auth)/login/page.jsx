@@ -38,7 +38,6 @@ function page() {
     setChecked(!checked);
   };
   const handleLogIn = async (data) => {
-    console.log(data);
     try {
       const res = await fetch("https://fakestoreapi.com/auth/login", {
         method: "POST",

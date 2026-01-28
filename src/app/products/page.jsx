@@ -36,7 +36,7 @@ function Page() {
   if (!product) {
     return (
       <h2 className={styles.loadingMessage}>
-        Products loading, please wait{" "}
+        loading, please wait{" "}
         <div className={styles.dotContainer}>
           <span className={styles.dot}>.</span>
           <span className={styles.dot}>.</span>

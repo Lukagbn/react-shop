@@ -158,10 +158,10 @@
   font-size: 12px;
   color: #fff;
 }
-.loginBtn {
+.btnLink {
   color: #ffd86b;
 }
-.loginBtn:hover {
+.btnLink:hover {
   text-decoration: underline;
 }
 .loadingMessage {

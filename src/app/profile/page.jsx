@@ -33,8 +33,13 @@ function page() {
   }, []);
   if (!userData)
     return (
-      <h2 className={`${layout.container} ${styles.loading}`}>
-        Loading please wait…
+      <h2 className={styles.loadingMessage}>
+        loading, please wait{" "}
+        <div className={styles.dotContainer}>
+          <span className={styles.dot}>.</span>
+          <span className={styles.dot}>.</span>
+          <span className={styles.dot}>.</span>
+        </div>
       </h2>
     );
   return (

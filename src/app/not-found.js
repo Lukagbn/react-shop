@@ -1,17 +1,14 @@
 import Link from "next/link";
-import layout from "@/app/layout.module.css";
 import styles from "./not-found.module.css";
 
 function NotFound() {
   return (
-    <div className={`${styles.notFoundContainer} ${layout.container}`}>
-      <h2>
-        Page Not Found!{" "}
-        <Link href={`/`}>
-          <br /> Return To ➡️Main
-        </Link>
-      </h2>
-    </div>
+    <h2 className={styles.notFoundMessage}>
+      Page not found!{" "}
+      <Link className={styles.btnLink} href={"/products"}>
+        Return to products
+      </Link>
+    </h2>
   );
 }
 export default NotFound;
