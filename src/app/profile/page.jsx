@@ -16,14 +16,14 @@ function page() {
   };
   const handleClick = () => {
     dispatch(deleteUser());
-    localStorage.removeItem("token");
-    sessionStorage.removeItem("sessionToken");
+    localStorage.removeItem("localUser");
+    sessionStorage.removeItem("sessionUser");
     window.location.reload();
   };
   const checkUser = () => {
-    const token = localStorage.getItem("token");
-    const sessionToken = sessionStorage.getItem("sessionToken");
-    if (!(token || sessionToken)) {
+    const localUser = localStorage.getItem("localUser");
+    const sessionUser = sessionStorage.getItem("sessionUser");
+    if (!(localUser || sessionUser)) {
       redirect("/");
     }
   };

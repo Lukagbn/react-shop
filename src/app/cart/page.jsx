@@ -32,9 +32,9 @@ function page() {
   };
   const getItemTotal = (item) => (item.price * item.quantity).toFixed(2);
   const checkUser = async () => {
-    const token = localStorage.getItem("token");
-    const sessionToken = sessionStorage.getItem("sessionToken");
-    if (token || sessionToken) {
+    const localUser = localStorage.getItem("localUser");
+    const sessionUser = sessionStorage.getItem("sessionUser");
+    if (localUser || sessionUser) {
       setHasToken(!hasToken);
     }
   };

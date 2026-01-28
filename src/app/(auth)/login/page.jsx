@@ -53,9 +53,9 @@ function page() {
       const parsedUserData = await userData.json();
       dispatch(updateUser(parsedUserData));
       if (checked) {
-        localStorage.setItem("token", result.token);
+        localStorage.setItem("localUser", "true");
       } else {
-        sessionStorage.setItem("sessionToken", result.token);
+        sessionStorage.setItem("sessionUser", "true");
       }
       router.push("/");
     } catch (error) {
@@ -63,9 +63,9 @@ function page() {
     }
   };
   const checkUser = async () => {
-    const token = localStorage.getItem("token");
-    const sessionToken = sessionStorage.getItem("sessionToken");
-    if (token || sessionToken) {
+    const localUser = localStorage.getItem("localUser");
+    const sessionUser = sessionStorage.getItem("sessionUser");
+    if (localUser || sessionUser) {
       redirect("/");
     }
   };
