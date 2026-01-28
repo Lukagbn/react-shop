@@ -4,14 +4,18 @@ import layout from "@/app/layout.module.css";
 import styles from "./page.module.css";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import { useAppDispatch } from "@/lib/hook";
+import { deleteUser } from "@/lib/slices/userSlice";
 function page() {
   const [userData, setUserData] = useState(null);
+  const dispatch = useAppDispatch();
   const fetchData = async () => {
     const resp = await fetch("https://fakestoreapi.com/users/3");
     const user = await resp.json();
     setUserData(user);
   };
   const handleClick = () => {
+    dispatch(deleteUser());
     localStorage.removeItem("token");
     sessionStorage.removeItem("sessionToken");
     window.location.reload();
@@ -29,8 +33,13 @@ function page() {
   }, []);
   if (!userData)
     return (
-      <h2 className={`${layout.container} ${styles.loading}`}>
-        Loading please wait…
+      <h2 className={styles.loadingMessage}>
+        loading, please wait{" "}
+        <div className={styles.dotContainer}>
+          <span className={styles.dot}>.</span>
+          <span className={styles.dot}>.</span>
+          <span className={styles.dot}>.</span>
+        </div>
       </h2>
     );
   return (

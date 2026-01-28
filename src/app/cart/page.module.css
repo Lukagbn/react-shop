@@ -1,18 +1,21 @@
 .cartContainer {
-  background-color: white;
+  background: linear-gradient(45deg, #667eea, #ac77e2);
   border-radius: 10px;
   padding: 20px;
   animation: fadeIn 0.6s ease;
+  color: #ffff;
+  margin-bottom: 30px;
 }
 .cartItemsHeader {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(4, auto);
   margin: auto;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ffff;
   padding-bottom: 10px;
+  color: #ffd86b;
 }
-.cartItemsHeader div:nth-of-type(2) {
-  text-align: center;
+.cartItemsHeader div {
+  font-weight: 700;
 }
 .loadingData {
   position: absolute;
@@ -28,7 +31,7 @@
   align-items: center;
   padding-block: 10px;
   gap: 10px;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(4, auto);
   border-bottom: 1px solid #ccc;
 }
 .cartHeadWrapper {
@@ -51,34 +54,45 @@
   flex-direction: column;
   gap: 10px;
 }
-.cartBodyWrapper {
-  display: flex;
-  max-width: 500px;
-  width: 100%;
-  gap: 20px;
-  align-items: center;
-}
-.cartQuantityContainer {
+.btnContainer {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
 }
-.cartQuantityContainer p {
-  border: 1px solid #ccc;
-  padding: 5px;
-  border-radius: 10px;
-  width: 30px;
-  text-align: center;
+.btnContainer .quantity {
+  background-color: #ccc;
+  padding-inline: 10px;
+  padding-block: 5px;
+  border-radius: 5px;
+  font-weight: 700;
 }
 .plus,
 .substract {
   border: none;
   outline: none;
-  font-size: 20px;
+  font-size: 30px;
   cursor: pointer;
-  color: #000;
-  scale: 1.5;
+  color: #ffff;
   background-color: transparent;
+  animation: all 0.2s ease-in-out;
+}
+.plus:active,
+.substract:active {
+  transform: scale(0.8);
+}
+.removeBtn {
+  padding: 4px;
+  background: linear-gradient(135deg, #ffd86b, #ff9f43);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.removeBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px #ffd86b80;
 }
 .cartItem button {
   background-color: transparent;
@@ -86,10 +100,68 @@
   border: none;
   cursor: pointer;
 }
-.loginBtn {
+.cartSummary h3 {
+  font-size: 15px;
+}
+.cartSummary {
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  align-items: center;
+  flex-direction: column;
+}
+.cartSummary button {
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffd86b, #ff9f43);
+  border: none;
+  border-radius: 30px;
+  justify-self: center;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+.cartSummary button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px #ffd86b80;
+}
+.cartSummary button:active {
+  transform: scale(0.8);
+}
+.formGroup {
+  position: relative;
+}
+.formGroup input {
+  width: 100%;
+  padding: 12px 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+}
+.formGroup label {
+  position: absolute;
+  left: 10px;
+  top: 25%;
+  transform: translateY(-25%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+.formGroup input:valid + label,
+.formGroup input:focus + label {
+  top: 0px;
+  font-size: 12px;
+  color: #fff;
+}
+.btnLink {
   color: #ffd86b;
 }
-.loginBtn:hover {
+.btnLink:hover {
   text-decoration: underline;
 }
 .loadingMessage {
@@ -120,24 +192,51 @@
 @media (min-width: 600px) {
   .cartItem {
     padding-block: 20px;
+    grid-template-columns: repeat(4, 1fr);
   }
-  .cartBodyWrapper {
-    justify-content: space-between;
+  .cartItemsHeader {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .cartItemsHeader div {
+    font-size: 18px;
   }
   .cartHeadWrapper img {
     width: 90px;
     height: 70px;
   }
+  .removeBtn {
+    width: 50px;
+    height: 50px;
+    justify-self: center;
+  }
+  .priceContainer span {
+    font-size: 22px;
+  }
+  .btnContainer .quantity {
+    padding-block: 10px;
+    padding-inline: 15px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .cartSummary {
+    flex-direction: row;
+  }
+  .cartSummary button {
+    padding: 12px;
+    font-size: 16px;
+  }
+  .cartSummary h3 {
+    font-size: 18px;
+  }
 }
 @media (min-width: 1300px) {
-  .cartItem {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .cartHeadWrapper {
-    flex-direction: row;
-    align-items: center;
-    max-width: 500px;
-    gap: 30px;
+    max-width: 130px;
+  }
+  .cartImgTextWrapper {
+    flex-direction: column;
+    gap: 10px;
+    display: flex;
   }
   .cartHeadWrapper img {
     width: 130px;

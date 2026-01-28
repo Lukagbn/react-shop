@@ -33,7 +33,14 @@ function page() {
   }, []);
   if (!singleProduct) {
     return (
-      <h2 className={styles.loadingData}>Loading product please wait...</h2>
+      <h2 className={styles.loadingMessage}>
+        loading, please wait{" "}
+        <div className={styles.dotContainer}>
+          <span className={styles.dot}>.</span>
+          <span className={styles.dot}>.</span>
+          <span className={styles.dot}>.</span>
+        </div>
+      </h2>
     );
   }
   return (

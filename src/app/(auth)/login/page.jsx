@@ -5,11 +5,30 @@ import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch } from "@/lib/hook";
 import { updateUser } from "@/lib/slices/userSlice";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+
+const schema = yup.object({
+  username: yup
+    .string()
+    .required("Username is required")
+    .min(4, "Username must be at least 4 characters"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(7, "Password must be at least 7 characters"),
+});
 
 function page() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const router = useRouter();
-  const [username, setUsername] = useState("");
-  const [password, setsetPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
   const [checked, setChecked] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -18,31 +37,29 @@ function page() {
   const handleCheck = async () => {
     setChecked(!checked);
   };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (username.length < 4 || password.length < 7) {
-      return setLoginError("incorrect login information!");
-    }
+  const handleLogIn = async (data) => {
     try {
       const res = await fetch("https://fakestoreapi.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: username, password: password }),
+        body: JSON.stringify(data),
       });
+      if (!res.ok) {
+        setLoginError("Incorrect login information");
+        return;
+      }
       const result = await res.json();
       const userData = await fetch("https://fakestoreapi.com/users/1");
       const parsedUserData = await userData.json();
       dispatch(updateUser(parsedUserData));
-      if (result?.token && checked) {
-        localStorage.setItem("token", JSON.stringify(result.token));
-        router.push("/");
+      if (checked) {
+        localStorage.setItem("token", result.token);
       } else {
-        sessionStorage.setItem("sessionToken", JSON.stringify(result.token));
-        router.push("/");
+        sessionStorage.setItem("sessionToken", result.token);
       }
+      router.push("/");
     } catch (error) {
-      setLoginError("error occured");
-      console.error(error);
+      setLoginError("Something went wrong. Try again.");
     }
   };
   const checkUser = async () => {
@@ -58,23 +75,28 @@ function page() {
 
   return (
     <div className={styles.formContainer}>
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit(handleLogIn)} noValidate>
         <h1 className={styles.formHeader}>log in</h1>
         <div className={styles.formGroup}>
-          <input
-            type="text"
-            required
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          <input type="text" {...register("username")} />
           <label>Username</label>
+          {errors.username && (
+            <span className={styles.errorMessage}>
+              {errors.username.message}
+            </span>
+          )}
         </div>
         <div className={styles.formGroup}>
           <input
             type={passwordVisible ? "text" : "password"}
-            required
-            onChange={(e) => setsetPassword(e.target.value)}
+            {...register("password")}
           />
           <label>Password</label>
+          {errors.password && (
+            <span className={styles.errorMessage}>
+              {errors.password.message}
+            </span>
+          )}
           <button
             className={styles.passwordVisible}
             type="button"

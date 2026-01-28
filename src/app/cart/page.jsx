@@ -15,6 +15,22 @@ function page() {
   const dispatch = useAppDispatch();
   const cartProducts = useAppSelector((state) => state.cart.cartProducts);
   const [hasToken, setHasToken] = useState(false);
+  const [discount, setDiscount] = useState(0);
+  const totalPrice = () => {
+    return cartProducts.reduce(
+      (total, item) =>
+        total + item.price * item.quantity * (1 - discount / 100),
+      0,
+    );
+  };
+  const checkDiscount = (item) => {
+    if (item.target.value == 2026) {
+      setDiscount(10);
+    } else {
+      setDiscount(0);
+    }
+  };
+  const getItemTotal = (item) => (item.price * item.quantity).toFixed(2);
   const checkUser = async () => {
     const token = localStorage.getItem("token");
     const sessionToken = sessionStorage.getItem("sessionToken");
@@ -38,7 +54,7 @@ function page() {
     return (
       <h2 className={styles.loadingMessage}>
         you must{" "}
-        <Link className={styles.loginBtn} href={"/login"}>
+        <Link className={styles.btnLink} href={"/login"}>
           log in
         </Link>{" "}
         to continiue!
@@ -49,7 +65,7 @@ function page() {
     return (
       <h2 className={styles.loadingMessage}>
         Cart is empty.{" "}
-        <Link className={styles.loginBtn} href={"/products"}>
+        <Link className={styles.btnLink} href={"/products"}>
           Add products
         </Link>
       </h2>
@@ -73,33 +89,47 @@ function page() {
               <h5>{item.category}</h5>
             </div>
           </div>
-          <div className={styles.cartBodyWrapper}>
-            <div className={styles.cartQuantityContainer}>
-              <button
-                className={styles.substract}
-                onClick={() => handleDecrease(item)}
-              >
-                -
-              </button>
-              <p>{item.quantity}</p>
-              <button
-                className={styles.plus}
-                onClick={() => handleIncrease(item)}
-              >
-                +
-              </button>
-            </div>
-            <div>
-              <span>${(item.price * item.quantity).toFixed(2)}</span>
-            </div>
-            <div>
-              <button onClick={() => handleDelete(item.id)}>
-                <Image src={"/bin.svg"} width={20} height={20} alt="bin" />
-              </button>
-            </div>
+          <div className={styles.btnContainer}>
+            <button
+              className={styles.substract}
+              onClick={() => handleDecrease(item)}
+            >
+              -
+            </button>
+            <p className={styles.quantity}>{item.quantity}</p>
+            <button
+              className={styles.plus}
+              onClick={() => handleIncrease(item)}
+            >
+              +
+            </button>
           </div>
+          <div className={styles.priceContainer}>
+            <span>${getItemTotal(item)}</span>
+          </div>
+          <button
+            className={styles.removeBtn}
+            onClick={() => handleDelete(item.id)}
+          >
+            <Image src={"/bin.svg"} width={20} height={20} alt="bin" />
+          </button>
         </div>
       ))}
+      <div className={styles.cartSummary}>
+        <div className={styles.formGroup}>
+          <input
+            type="text"
+            onChange={(event) => checkDiscount(event)}
+            required
+          />
+          <label>Promo Code</label>
+        </div>
+        <h3>
+          Total: ${totalPrice().toFixed(2)}
+          {discount ? ` (With ${discount}% discount)` : ""}
+        </h3>
+        <button>Proceed to checkout</button>
+      </div>
     </main>
   );
 }

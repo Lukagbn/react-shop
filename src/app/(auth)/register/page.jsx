@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 const schema = yup.object().shape({
   firstName: yup
@@ -38,6 +39,7 @@ const schema = yup.object().shape({
 });
 
 function page() {
+  const router = useRouter();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const {
     register,
@@ -55,7 +57,7 @@ function page() {
       const result = await res.json();
       if (result?.id) {
         reset();
-        console.log("success!");
+        router.push("/");
       }
     } catch (error) {
       console.error(error);

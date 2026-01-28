@@ -15,7 +15,9 @@ const userSlice = createSlice({
       state.age = action.payload.id;
       state.isLoggedIn = true;
     },
-    deleteUser: (state, action) => {},
+    deleteUser: (state) => {
+      state.isLoggedIn = false;
+    },
     restoreUser: (state) => {
       state.isLoggedIn = true;
     },
