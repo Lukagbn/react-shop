@@ -1,9 +1,29 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+}
 .cardContainer {
   display: grid;
   margin: 30px auto;
   gap: 20px;
   justify-content: center;
   animation: fadeIn 0.6s ease;
+}
+.filterProducts {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 12px;
+  border-radius: 30px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffd86b, #ff9f43);
+  outline: none;
+}
+.filterProducts option {
+  background-color: rgb(164, 81, 253);
 }
 .card {
   max-width: 300px;

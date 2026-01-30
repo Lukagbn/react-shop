@@ -12,11 +12,13 @@ function Page() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const [hasToken, setHasToken] = useState(false);
-  const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState(null);
+  const [filteredProducts, setFilteredProducts] = useState(null);
   const fetchProducts = async () => {
     const res = await fetch("https://fakestoreapi.com/products");
     const result = await res.json();
-    return setProduct(result);
+    setProducts(result);
+    setFilteredProducts(result);
   };
   const checkUser = async () => {
     const localUser = localStorage.getItem("localUser");
@@ -29,11 +31,21 @@ function Page() {
     dispatch(addToCart(item));
     console.log(item);
   };
+  const filterProducts = (item) => {
+    const category = item.target.value;
+    let filtered;
+    if (category === "all") {
+      filtered = products;
+    } else {
+      filtered = products.filter((product) => product.category === category);
+    }
+    setFilteredProducts(filtered);
+  };
   useEffect(() => {
     checkUser();
     fetchProducts();
   }, []);
-  if (!product) {
+  if (!products) {
     return (
       <h2 className={styles.loadingMessage}>
         loading, please wait{" "}
@@ -46,34 +58,51 @@ function Page() {
     );
   }
   return (
-    <section className={`${styles.cardContainer} ${layout.container}`}>
-      {product?.map((item) => (
-        <div key={item.id}>
-          <div className={styles.card}>
-            <Link href={`/products/details/${item.id}`}>
-              <Image
-                src={item.image}
-                width={150}
-                height={150}
-                alt={item.title}
-              />
-            </Link>
-            <div className={styles.cardBody}>
-              <p className={styles.location}>Ships to ukraine</p>
-              <h3>{item.title}</h3>
-              <StarRating rating={item.rating.rate} count={item.rating.count} />
-              <h2>${item.price}</h2>
-              {user.isLoggedIn || hasToken ? (
-                <button onClick={() => handleAddToCart(item)}>
-                  Add to cart
-                </button>
-              ) : (
-                <Link href={"/login"}>Log in to use cart</Link>
-              )}
+    <section className={`${layout.container} ${styles.section}`}>
+      <select
+        className={styles.filterProducts}
+        name="category"
+        id="category"
+        onChange={(item) => filterProducts(item)}
+      >
+        <option value="all">All</option>
+        <option value="electronics">Electronics</option>
+        <option value="jewelery">Jewelery</option>
+        <option value="women's clothing">Women's Clothing</option>
+        <option value="men's clothing">Men's Clothing</option>
+      </select>
+      <div className={styles.cardContainer}>
+        {filteredProducts?.map((item) => (
+          <div key={item.id}>
+            <div className={styles.card}>
+              <Link href={`/products/details/${item.id}`}>
+                <Image
+                  src={item.image}
+                  width={150}
+                  height={150}
+                  alt={item.title}
+                />
+              </Link>
+              <div className={styles.cardBody}>
+                <p className={styles.location}>Ships to ukraine</p>
+                <h3>{item.title}</h3>
+                <StarRating
+                  rating={item.rating.rate}
+                  count={item.rating.count}
+                />
+                <h2>${item.price}</h2>
+                {user.isLoggedIn || hasToken ? (
+                  <button onClick={() => handleAddToCart(item)}>
+                    Add to cart
+                  </button>
+                ) : (
+                  <Link href={"/login"}>Log in to use cart</Link>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 }
