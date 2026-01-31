@@ -1,4 +1,4 @@
-<img width="1920" height="1080" alt="products" src="https://github.com/user-attachments/assets/7d3e91e5-7bb0-45c4-a4dc-4f5263542e7a" /># 🛒 The Daily Haul
+# 🛒 The Daily Haul
 
 A high-performance, fully responsive e-commerce application built with Next.js (App Router) and React. This project features a seamless shopping experience across all device sizes, utilizing Redux Toolkit for robust state management and FakeStoreAPI for dynamic data fetching. The app includes secure authentication, detailed product views, and a persistent shopping cart, with client-side form validation powered by Yup.
 
