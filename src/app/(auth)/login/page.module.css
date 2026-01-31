@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-block: 20px;
 }
 .formContainer form {
   width: 100%;
