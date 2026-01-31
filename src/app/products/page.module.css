@@ -5,6 +5,14 @@
   margin: auto;
   align-items: center;
 }
+.filterProductsContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.filterProductsContainer span {
+  color: #ffff;
+}
 .cardContainer {
   display: grid;
   margin: 30px auto;

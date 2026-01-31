@@ -59,18 +59,21 @@ function Page() {
   }
   return (
     <section className={`${layout.container} ${styles.section}`}>
-      <select
-        className={styles.filterProducts}
-        name="category"
-        id="category"
-        onChange={(item) => filterProducts(item)}
-      >
-        <option value="all">All</option>
-        <option value="electronics">Electronics</option>
-        <option value="jewelery">Jewelery</option>
-        <option value="women's clothing">Women's Clothing</option>
-        <option value="men's clothing">Men's Clothing</option>
-      </select>
+      <div className={styles.filterProductsContainer}>
+        <span>Filter Products By Category:</span>
+        <select
+          className={styles.filterProducts}
+          name="category"
+          id="category"
+          onChange={(item) => filterProducts(item)}
+        >
+          <option value="all">All</option>
+          <option value="electronics">Electronics</option>
+          <option value="jewelery">Jewelery</option>
+          <option value="women's clothing">Women's Clothing</option>
+          <option value="men's clothing">Men's Clothing</option>
+        </select>
+      </div>
       <div className={styles.cardContainer}>
         {filteredProducts?.map((item) => (
           <div key={item.id}>
