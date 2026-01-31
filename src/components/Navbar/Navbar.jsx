@@ -8,11 +8,13 @@ import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "@/lib/hook";
 import { restoreUser } from "@/lib/slices/userSlice";
+import { cartTotalQuantity } from "@/lib/slices/cartSlice";
 
 function Navbar() {
   const pathname = usePathname();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const dispatch = useAppDispatch();
+  const totalQuantity = useSelector(cartTotalQuantity);
   const NAVBAR_LIST = [
     {
       name: "Products",
@@ -44,7 +46,7 @@ function Navbar() {
         {NAVBAR_LIST.map((item) => (
           <li
             key={item.name}
-            className={`${pathname === item.url ? styles.active : null}`}
+            className={`${pathname === item.url ? styles.active : null} ${item.className}`}
           >
             <Link href={`${item.url}`}>
               {item.name}
@@ -56,6 +58,11 @@ function Navbar() {
                 alt={`${item.name}`}
               />
             </Link>
+            {item.url === "/cart" &&
+              totalQuantity > 0 &&
+              totalQuantity < 100 && (
+                <span className={styles.cartQuantity}>{totalQuantity}</span>
+              )}
           </li>
         ))}
       </ul>

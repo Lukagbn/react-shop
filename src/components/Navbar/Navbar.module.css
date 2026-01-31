@@ -41,7 +41,18 @@
   scale: 1.15;
 }
 .cart {
+  position: relative;
   scale: 1.25;
+}
+.cartQuantity {
+  text-align: center;
+  position: absolute;
+  top: -7px;
+  right: -15px;
+  background-color: red;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
 }
 .active::after {
   content: "";
