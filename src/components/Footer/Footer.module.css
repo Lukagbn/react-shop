@@ -2,6 +2,7 @@
   margin-bottom: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
 }
 .footer ul {
   display: grid;
