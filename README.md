@@ -1,4 +1,4 @@
-# 🛒 React Shop (Next.js)
+# 🛒 The Daily Haul
 
 A simple e-commerce application built with Next.js (App Router), React, Redux Toolkit, and Yup.
 The app fetches products from FakeStoreAPI, supports authentication, product details, and a fully working shopping cart.
@@ -6,33 +6,40 @@ The app fetches products from FakeStoreAPI, supports authentication, product det
 ## ✨ Features
 
 ### 🛍️ Products page
+
 - Fetches products from FakeStoreAPI
 - Displays product list with ratings
 
 ### 🔍 Product details
+
 - Dynamic route using [id]
 - Detailed product view
 
 ### 🔐 Authentication
+
 - Login & Signup pages
 - Built with React Hook Form + Yup validation
 - Login checks credentials against fakestoreapi.com/users/{id}
 
 ### 🛒 Shopping Cart
+
 - Add / remove products
 - Increase / decrease quantity (max 10)
 - Cart state managed with Redux
 
 ### 👤 User State Management
+
 - User data stored globally using Redux Toolkit
 
 ### 💅 Modern UI
+
 - CSS Modules
 - Animated inputs & interactions
 
 ## 🧠 State Management (Redux)
 
-User Slice  
+User Slice
+
 ```
 initialState:
 {
@@ -42,24 +49,30 @@ initialState:
   isLoggedIn: false
 }
 ```
+
 Actions:
+
 - updateUser – stores user info and marks user as logged in
 - deleteUser – logs user out
 - restoreUser – restores login state
 
-Cart Slice  
+Cart Slice
+
 ```
 initialState:
 {
   cartProducts: []
 }
 ```
+
 Actions:
+
 - addToCart – adds product or increases quantity
 - deleteFromCart – removes product
 - decreaseQuantity – decreases quantity (minimum 1)
 
 ## 📁 Project Structure
+
 ```
 public
 ├── bin.svg
@@ -126,7 +139,9 @@ next.config.json
 package.json
 readme.md
 ```
+
 ## 🧰 Tech Stack
+
 - Next.js 16 (App Router)
 - React 19
 - Redux Toolkit
@@ -137,6 +152,7 @@ readme.md
 - FakeStoreAPI
 
 ## 📦 Dependencies
+
 ```
 {
   "next": "16.1.1",
@@ -149,15 +165,19 @@ readme.md
   "yup": "^1.7.1"
 }
 ```
+
 ## 🚀 Getting Started
+
 ```
-npm install  
-npm run dev  
+npm install
+npm run dev
 ```
+
 Open:
 http://localhost:3000
 
 ## 📝 Notes
+
 - This project is frontend-only
 - Authentication is simulated using FakeStoreAPI
 - Tokens are stored in localStorage or sessionStorage
