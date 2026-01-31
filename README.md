@@ -1,21 +1,30 @@
-# 🛒 The Daily Haul
+<img width="1920" height="1080" alt="products" src="https://github.com/user-attachments/assets/7d3e91e5-7bb0-45c4-a4dc-4f5263542e7a" /># 🛒 The Daily Haul
 
-A simple e-commerce application built with Next.js (App Router), React, Redux Toolkit, and Yup.
-The app fetches products from FakeStoreAPI, supports authentication, product details, and a fully working shopping cart.
+A high-performance, fully responsive e-commerce application built with Next.js (App Router) and React. This project features a seamless shopping experience across all device sizes, utilizing Redux Toolkit for robust state management and FakeStoreAPI for dynamic data fetching. The app includes secure authentication, detailed product views, and a persistent shopping cart, with client-side form validation powered by Yup.
+
+## 🛠️ Google PageSpeed Insights Score:
+
+<img width="470" height="107" alt="score" src="https://github.com/user-attachments/assets/82e06d4e-61ba-4311-8bd3-b32991945f2d" />
 
 ## ✨ Features
 
 ### 🛍️ Products page
+
+<img width="1920" height="1080" alt="products2" src="https://github.com/user-attachments/assets/a018b16b-8d3a-4c9e-900d-ef98b67fa652" />
 
 - Fetches products from FakeStoreAPI
 - Displays product list with ratings
 
 ### 🔍 Product details
 
+<img width="1920" height="1080" alt="details" src="https://github.com/user-attachments/assets/f39290ba-1066-4e91-b709-2a4007ed7c44" />
+
 - Dynamic route using [id]
 - Detailed product view
 
 ### 🔐 Authentication
+
+<img width="1920" height="1080" alt="login" src="https://github.com/user-attachments/assets/af23fc06-684c-437c-b9dc-543872dc3269" />
 
 - Login & Signup pages
 - Built with React Hook Form + Yup validation
@@ -23,11 +32,15 @@ The app fetches products from FakeStoreAPI, supports authentication, product det
 
 ### 🛒 Shopping Cart
 
+<img width="1920" height="1080" alt="cart" src="https://github.com/user-attachments/assets/d166a7e9-dafb-486f-a8ea-fb333329a13a" />
+
 - Add / remove products
 - Increase / decrease quantity (max 10)
 - Cart state managed with Redux
 
-### 👤 User State Management
+### 👤 User State Management / Profile Page
+
+<img width="1920" height="1080" alt="profile" src="https://github.com/user-attachments/assets/bf8f8340-f252-4882-9267-b0dfc10b121e" />
 
 - User data stored globally using Redux Toolkit
 
