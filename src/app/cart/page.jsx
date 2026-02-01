@@ -10,12 +10,15 @@ import {
   deleteFromCart,
   decreaseQuantity,
 } from "@/lib/slices/cartSlice";
+import { useRouter } from "next/navigation";
 
 function page() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const cartProducts = useAppSelector((state) => state.cart.cartProducts);
   const [hasToken, setHasToken] = useState(false);
   const [discount, setDiscount] = useState(0);
+  const [checkOut, setCheckOut] = useState(false);
   const totalPrice = () => {
     return cartProducts.reduce(
       (total, item) =>
@@ -113,6 +116,47 @@ function page() {
           >
             <Image src={"/bin.svg"} width={20} height={20} alt="bin" />
           </button>
+          <div
+            className={checkOut ? styles.overlay : styles.invisible}
+            onClick={() => setCheckOut(false)}
+          ></div>
+          <div
+            className={checkOut ? `${styles.checkOut}` : `${styles.invisible}`}
+          >
+            <button
+              className={styles.checkOutBtnClose}
+              type="button"
+              onClick={() => setCheckOut(!checkOut)}
+            >
+              X
+            </button>
+            <h2>Total</h2>
+            <p>
+              Original Price: <span>${totalPrice().toFixed(2)}</span>
+            </p>
+            <p>
+              Discounted: <span>{discount ? ` ${discount}%` : `0%`}</span>
+            </p>
+            <div>
+              <label>Card Numbers</label>
+              <input className={styles.numberInput} type="text" required />
+            </div>
+            <div>
+              <label>CVV</label>
+              <input className={styles.numberInput} type="text" required />
+            </div>
+            <div>
+              <label>Expire Date</label>
+              <input className={styles.dateInput} type="date" required />
+            </div>
+            <button
+              className={styles.checkOutBtn}
+              type="button"
+              onClick={() => router.push("/")}
+            >
+              Buy
+            </button>
+          </div>
         </div>
       ))}
       <div className={styles.cartSummary}>
@@ -128,7 +172,9 @@ function page() {
           Total: ${totalPrice().toFixed(2)}
           {discount ? ` (With ${discount}% discount)` : ""}
         </h3>
-        <button>Proceed to checkout</button>
+        <button onClick={() => setCheckOut(!checkOut)}>
+          Proceed to checkout
+        </button>
       </div>
     </main>
   );
