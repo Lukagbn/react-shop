@@ -29,6 +29,7 @@ A high-performance, fully responsive e-commerce application built with Next.js (
 - Login & Signup pages
 - Built with React Hook Form + Yup validation
 - Login checks credentials against fakestoreapi.com/users/{id}
+- Example login credentials - username: johnd, password: m38rmF$
 
 ### 🛒 Shopping Cart
 
